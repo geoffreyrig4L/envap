@@ -2,6 +2,7 @@ import "./global.css";
 import "./home.css";
 import "./signIn/signIn.css";
 import Navbar from "@/components/Navbar";
+import { SessionContextProvider } from "@/app/context/session";
 
 export const metadata = {
   title: "Envap",
@@ -12,8 +13,10 @@ export default function RootLayout({ children }) {
   return (
     <html>
       <body>
-        <Navbar />
-        <div className="py-16 px-36">{children}</div>
+        <SessionContextProvider>
+          <Navbar />
+          <div className="py-16 px-36">{children}</div>
+        </SessionContextProvider>
       </body>
     </html>
   );

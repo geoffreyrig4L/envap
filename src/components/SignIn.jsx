@@ -1,7 +1,17 @@
+"use client";
+
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
+import users from "@/resources/users";
+import { useRouter } from "next/navigation";
+import { useContext } from "react";
+import SessionContext from "@/app/context/session";
 
 const SignIn = () => {
+  const { setUser } = useContext(SessionContext);
+
+  const router = useRouter();
+
   // Définition du schéma de validation avec Yup
   const validationSchema = Yup.object({
     username: Yup.string().required("Le nom d'utilisateur est requis"),
@@ -10,9 +20,18 @@ const SignIn = () => {
 
   // Fonction appelée lors de la soumission du formulaire
   const handleSubmit = (values, { setSubmitting }) => {
-    // Effectuer des actions de connexion ici, par exemple une requête HTTP
-
-    // Réinitialiser le formulaire après la soumission
+    users.forEach((user) => {
+      if (
+        values.username === user.username &&
+        values.password === user.password
+      ) {
+        setUser(user);
+        router.push("/");
+      } else {
+        document.getElementById("errorSignIn").textContent =
+          "Nom d'utilisateur et / ou mot de passe incorrect";
+      }
+    });
     setSubmitting(false);
   };
 
@@ -24,7 +43,7 @@ const SignIn = () => {
         validationSchema={validationSchema}
         onSubmit={handleSubmit}
       >
-        <Form className="w-[40%] ml-[60px]">
+        <Form className="w-full ml-[60px]">
           <div className="field">
             <label htmlFor="username">Nom d&apos;utilisateur</label>
             <Field
@@ -35,7 +54,7 @@ const SignIn = () => {
               autoComplete="off"
             />
             <ErrorMessage
-              className="errorMessage"
+              className="errorMessage bottom-[-25px]"
               name="username"
               component="div"
             />
@@ -51,15 +70,18 @@ const SignIn = () => {
               autoComplete="off"
             />
             <ErrorMessage
-              className="errorMessage"
+              className="errorMessage bottom-[-25px]"
               name="password"
               component="div"
             />
           </div>
 
-          <button className="button submit shadow" type="submit">
-            Se connecter
-          </button>
+          <div className="flex flex-row justify-start items-center">
+            <button className="button submit shadow" type="submit">
+              Se connecter
+            </button>
+            <p id="errorSignIn" className="opacity-[0.6]"></p>
+          </div>
         </Form>
       </Formik>
     </div>
