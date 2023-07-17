@@ -1,4 +1,7 @@
-import "./globals.css";
+import "./global.css";
+import "./home.css";
+import "./signIn/signIn.css";
+import Navbar from "@/components/Navbar";
 
 export const metadata = {
   title: "Envap",
@@ -9,7 +12,8 @@ export default function RootLayout({ children }) {
   return (
     <html>
       <body>
-        <div>{children}</div>
+        <Navbar />
+        <div className="py-16 px-36">{children}</div>
       </body>
     </html>
   );

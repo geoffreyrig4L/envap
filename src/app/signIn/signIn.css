@@ -1,0 +1,31 @@
+.field {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 2em;
+  position: relative;
+}
+
+.inputFormik {
+  height: 2em;
+  border-radius: 12px;
+  padding: 2px 1em;
+  outline-offset: 2px;
+  outline-color: #40e0d0;
+}
+
+.errorMessage {
+  position: absolute;
+  bottom: -25px;
+  opacity: 0.6;
+}
+
+label {
+  margin-bottom: 6px;
+  font-weight: 600;
+}
+
+.submit {
+  margin: 2em;
+  padding: 1em 2em;
+  font-weight: 600;
+}

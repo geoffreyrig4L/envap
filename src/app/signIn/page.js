@@ -1,3 +1,7 @@
-export default function SignIn() {
-  return <h1>Sign in</h1>;
+"use client";
+import React from "react";
+import SignIn from "@/components/SignIn";
+
+export default function SignInPage() {
+  return <SignIn />;
 }
