@@ -1,16 +1,20 @@
-import { Link } from "next/link";
-import { Image } from "next/image";
+import { BiLogInCircle } from "react-icons/bi";
 
 const Navbar = () => {
   return (
-    <ul className="flex flex-row justify-between items-center px-4">
-      <Image src="/logo.jpg" alt="logo" width={50} height={50} />
-      <li className="flex flex-row w-[200px] justify-between">
-        <Link href={"/signIn"}>
-          <button className="buttonNavbar">Sign in</button>
-        </Link>
-      </li>
-    </ul>
+    <div>
+      <ul className="flex flex-row w-full justify-between p-12 bg-white">
+        <li>
+          <h1 className="font-bold text-3xl text-[#40E0D0]">Envap</h1>
+        </li>
+        <li className="flex flex-row w-36 justify-between">
+          <p className="font-semibold italic">jetons</p>
+          <button>
+            <BiLogInCircle className="text-3xl hover:text-blue-400 transition-all duration-300" />
+          </button>
+        </li>
+      </ul>
+    </div>
   );
 };
 

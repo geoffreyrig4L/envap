@@ -1,0 +1,17 @@
+[
+  {
+    "username": "alpha",
+    "password": "alpha1",
+    "tokens": 0
+  },
+  {
+    "username": "beta",
+    "password": "beta1",
+    "tokens": 1200
+  },
+  {
+    "username": "gamma",
+    "password": "gamma1",
+    "tokens": 64000
+  }
+]
