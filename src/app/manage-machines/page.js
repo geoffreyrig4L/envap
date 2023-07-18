@@ -20,7 +20,7 @@ export default function ManageMachinesPage() {
       <div className="flex flex-row justify-between items-center w-full mb-[40px]">
         <h1 className="title">Gérer ses machines</h1>
         <Link href="/create-machine">
-          <div className="flex flex-row justify-between items-center button p-4 w-[120%] shadow text-center">
+          <div className="flex flex-row justify-between items-center button enabled p-4 w-[120%] shadow text-center">
             <p>Créer</p>
             <BsArrowRightShort className="text-2xl" />
           </div>

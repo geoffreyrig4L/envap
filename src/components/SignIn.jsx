@@ -52,7 +52,6 @@ const SignIn = () => {
               id="username"
               name="username"
               autoComplete="off"
-              value="gamma"
             />
             <ErrorMessage
               className="errorMessage bottom-[-20px]"
@@ -69,7 +68,6 @@ const SignIn = () => {
               id="password"
               name="password"
               autoComplete="off"
-              value="gamma1"
             />
             <ErrorMessage
               className="errorMessage bottom-[-20px]"
@@ -80,7 +78,7 @@ const SignIn = () => {
 
           <div className="flex flex-row justify-start items-center">
             <button
-              className="button m-[1.2em] py-[1em] px-[2em] shadow"
+              className="button enabled m-[1.2em] py-[1em] px-[2em] shadow"
               type="submit"
             >
               Se connecter

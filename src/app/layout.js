@@ -8,6 +8,9 @@ import { SessionContextProvider } from "@/app/context/session";
 export const metadata = {
   title: "Envap",
   description: "A simple environment manager",
+  icons: {
+    icon: "logo.png",
+  },
 };
 
 export default function RootLayout({ children }) {
