@@ -37,9 +37,9 @@ const SignIn = () => {
 
   return (
     <div>
-      <h1 className="text-3xl font-semibold mb-[60px]">Connexion</h1>
+      <h1 className="title mb-[40px]">Connexion</h1>
       <Formik
-        initialValues={{ username: "", password: "" }}
+        initialValues={{ username: "gamma", password: "gamma1" }}
         validationSchema={validationSchema}
         onSubmit={handleSubmit}
       >
@@ -52,9 +52,10 @@ const SignIn = () => {
               id="username"
               name="username"
               autoComplete="off"
+              value="gamma"
             />
             <ErrorMessage
-              className="errorMessage bottom-[-25px]"
+              className="errorMessage bottom-[-20px]"
               name="username"
               component="div"
             />
@@ -68,9 +69,10 @@ const SignIn = () => {
               id="password"
               name="password"
               autoComplete="off"
+              value="gamma1"
             />
             <ErrorMessage
-              className="errorMessage bottom-[-25px]"
+              className="errorMessage bottom-[-20px]"
               name="password"
               component="div"
             />

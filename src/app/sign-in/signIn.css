@@ -1,7 +1,7 @@
 .field {
   display: flex;
   flex-direction: column;
-  margin-bottom: 2em;
+  margin-bottom: 1.8em;
   width: 40%;
   position: relative;
 }
@@ -17,6 +17,7 @@
 .errorMessage {
   position: absolute;
   opacity: 0.6;
+  font-size: 0.8em;
 }
 
 label {
@@ -25,7 +26,7 @@ label {
 }
 
 .submit {
-  margin: 2em;
+  margin: 1.2em;
   padding: 1em 2em;
   font-weight: 600;
 }

@@ -1,14 +1,13 @@
 "use client";
 
-import Link from "next/link";
-import { BiLogInCircle, BiLogOutCircle } from "react-icons/bi";
 import SessionContext from "@/app/context/session";
+import Link from "next/link";
 import { useContext } from "react";
+import { BiLogInCircle, BiLogOutCircle } from "react-icons/bi";
 import { useRouter } from "next/navigation";
 
 const Navbar = () => {
   const { user, setUser } = useContext(SessionContext);
-
   const router = useRouter();
 
   return (
@@ -19,25 +18,19 @@ const Navbar = () => {
             Envap
           </Link>
         </li>
-        <li className="flex flex-row justify-between">
+        <li>
           {Object.keys(user).length === 0 ? (
-            <div className="flex flex-row">
-              <p className="font-semibold italic text-lg mr-[50px] text-[#cd6155]/80">
+            <Link
+              className="flex flex-row justify-around items-center shadow button p-2 hover:text-[#40E0D0] w-[500px]"
+              href="/sign-in"
+            >
+              <p className="font-semibold italic text-lg">
                 Connectez-vous pour créer des machines
               </p>
-              <button
-                onClick={() => {
-                  router.push("./signIn");
-                }}
-              >
-                <BiLogInCircle
-                  title="Se connecter"
-                  className="text-3xl hover:text-[#40E0D0] transition-all duration-300"
-                />
-              </button>
-            </div>
+              <BiLogInCircle title="Se connecter" className="text-3xl" />
+            </Link>
           ) : (
-            <div className="flex flex-row">
+            <div className="flex flex-row justify-between">
               <div className="flex flex-row w-[300px] justify-around">
                 <p>
                   <b>username</b> : {user.username}
@@ -49,6 +42,7 @@ const Navbar = () => {
               <button
                 onClick={() => {
                   setUser({});
+                  router.push("/");
                 }}
               >
                 <BiLogOutCircle

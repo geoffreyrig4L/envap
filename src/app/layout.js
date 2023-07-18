@@ -1,6 +1,6 @@
 import "./global.css";
 import "./home.css";
-import "./signIn/signIn.css";
+import "./sign-in/signIn.css";
 import Navbar from "@/components/Navbar";
 import { SessionContextProvider } from "@/app/context/session";
 
@@ -15,7 +15,7 @@ export default function RootLayout({ children }) {
       <body>
         <SessionContextProvider>
           <Navbar />
-          <div className="py-16 px-36">{children}</div>
+          <div className="py-8 px-36">{children}</div>
         </SessionContextProvider>
       </body>
     </html>
