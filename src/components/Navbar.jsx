@@ -24,7 +24,7 @@ const Navbar = () => {
               className="flex flex-row justify-around items-center shadow button p-2 hover:text-[#40E0D0] w-[500px]"
               href="/sign-in"
             >
-              <p className="font-semibold italic text-lg">
+              <p className="italic text-lg">
                 Connectez-vous pour créer des machines
               </p>
               <BiLogInCircle title="Se connecter" className="text-3xl" />

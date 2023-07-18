@@ -1,5 +1,6 @@
 import "./global.css";
 import "./home.css";
+import "./create-machine/createMachines.css";
 import "./sign-in/signIn.css";
 import Navbar from "@/components/Navbar";
 import { SessionContextProvider } from "@/app/context/session";

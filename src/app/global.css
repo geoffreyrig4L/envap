@@ -32,6 +32,7 @@ body {
   border-radius: 1em;
   outline-style: none;
   background-color: white;
+  font-weight: 600;
 }
 
 .title {

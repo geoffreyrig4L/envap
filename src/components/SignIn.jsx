@@ -79,7 +79,10 @@ const SignIn = () => {
           </div>
 
           <div className="flex flex-row justify-start items-center">
-            <button className="button submit shadow" type="submit">
+            <button
+              className="button m-[1.2em] py-[1em] px-[2em] shadow"
+              type="submit"
+            >
               Se connecter
             </button>
             <p id="errorSignIn" className="opacity-[0.6]"></p>
