@@ -1,31 +1,34 @@
 "use client";
 import Link from "next/link";
 import { BsArrowRightShort } from "react-icons/bs";
-import { useEffect, useContext } from "react";
 import { useRouter } from "next/navigation";
+import { useContext, useEffect } from "react";
 import SessionContext from "../context/session";
-import { displayMessageWhenButtonClick } from "../utils/functionsCreateMachine";
+import {
+  displayMessageWhenButtonClick,
+  disableCreateButton,
+} from "../utils/functionsCreateMachine";
 
 export default function CreateMachinePage() {
-  const { user, setUser } = useContext(SessionContext);
+  const { user } = useContext(SessionContext);
   const router = useRouter();
 
   useEffect(() => {
-    if (Object.keys(user).length === 0) {
-      router.push("/");
-    }
-  });
-
-  useEffect(() => {
     if (user.tokens < 1000) {
-      const createButton = document.getElementById("createButton");
-      createButton.setAttribute("disabled", "");
-      createButton.classList.add("disabled");
-      createButton.classList.remove("enabled");
+      disableCreateButton();
       const requirementParagraph = document.getElementById("requirement");
       requirementParagraph.classList.add("text-red-500");
     }
   }, [user]);
+
+  async function handleClick() {
+    disableCreateButton();
+    await Promise.all([
+      displayMessageWhenButtonClick("loading"),
+      displayMessageWhenButtonClick("spendNotification"),
+    ]);
+    router.push("/create-machine/start-creation");
+  }
 
   return (
     <div>
@@ -48,15 +51,7 @@ export default function CreateMachinePage() {
       <div className="flex flex-row items-center relative w-[150px]">
         <button
           id="createButton"
-          onClick={() => {
-            setUser((previousState) => {
-              return {
-                ...previousState,
-                tokens: previousState.tokens - 1000,
-              };
-            });
-            displayMessageWhenButtonClick("spendNotification");
-          }}
+          onClick={handleClick}
           className="button enabled my-7 p-2 w-full shadow"
         >
           Créer
@@ -68,6 +63,10 @@ export default function CreateMachinePage() {
           -1000 jetons
         </p>
       </div>
+      <span
+        id="loading"
+        className="loading loading-dots loading-lg hide transition-opacity duration-[500ms]"
+      ></span>
     </div>
   );
 }

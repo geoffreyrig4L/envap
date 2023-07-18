@@ -19,7 +19,7 @@ export default function RootLayout({ children }) {
       <body>
         <SessionContextProvider>
           <Navbar />
-          <div className="py-8 px-36">{children}</div>
+          <div className="px-36 py-24 h-full">{children}</div>
         </SessionContextProvider>
       </body>
     </html>

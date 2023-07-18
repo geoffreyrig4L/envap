@@ -25,7 +25,7 @@ export default function Home() {
   }, [user]);
 
   return (
-    <div className="w-[60%] m-auto flex flex-row justify-around pt-12">
+    <div className="w-[60%] m-auto flex flex-row justify-around">
       <button
         onClick={() => {
           router.push("./create-machine");
