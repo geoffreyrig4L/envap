@@ -9,8 +9,8 @@ export function displayMessageWhenButtonClick(element) {
   });
 }
 
-export function disableCreateButton() {
-  const createButton = document.getElementById("createButton");
+export function disableButton(element) {
+  const createButton = document.getElementById(element);
   createButton.setAttribute("disabled", "");
   createButton.classList.add("disabled");
   createButton.classList.remove("enabled");
