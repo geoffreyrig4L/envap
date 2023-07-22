@@ -3,6 +3,7 @@ import {
   displayMessageWhenButtonClick,
   disableButton,
 } from "@/app/utils/functionsCreateMachine";
+import axios from "axios";
 import { useEffect, useState } from "react";
 
 export default function StartCreationPage() {
@@ -13,6 +14,7 @@ export default function StartCreationPage() {
     await Promise.all([
       displayMessageWhenButtonClick("loadingCreation"),
       displayMessageWhenButtonClick("spendNotification"),
+      createVirtualMachine(env),
     ]);
     //router.push("/create-machine/start-creation");
   }
@@ -29,8 +31,45 @@ export default function StartCreationPage() {
   }, [env]);
 
   const radioHandler = (event) => {
-    console.log(event.currentTarget.value);
     setEnv(event.currentTarget.value);
+  };
+
+  const createVirtualMachine = (env) => {
+    let data = {};
+    switch (env) {
+      case "Ubuntu":
+        data = {
+          publisher: "Canonical",
+          offer: "UbuntuServer",
+          sku: "18.04-LTS",
+        };
+        break;
+      case "CentOS":
+        data = {
+          publisher: "OpenLogic",
+          offer: "CentOS",
+          sku: "7.5",
+        };
+        break;
+      case "Debian":
+        data = {
+          publisher: "Debian",
+          offer: "debian-10",
+          sku: "10",
+        };
+        break;
+      default:
+        break;
+    }
+
+    axios
+      .post("http://localhost:3001/create", data)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err.response.data);
+      });
   };
 
   return (
@@ -40,7 +79,7 @@ export default function StartCreationPage() {
       <div className="ml-6 w-56">
         <ul className="w-full bg-white shadow p-4 rounded-sm">
           <li className="flex flex-row justify-around items-center w-full">
-            <label for="Ubuntu">Ubuntu</label>
+            <label htmlFor="Ubuntu">Ubuntu</label>
             <input
               type="radio"
               onChange={radioHandler}
@@ -51,7 +90,7 @@ export default function StartCreationPage() {
             />
           </li>
           <li className="flex flex-row justify-around items-center w-full">
-            <label for="CentOS">CentOS</label>
+            <label htmlFor="CentOS">CentOS</label>
             <input
               type="radio"
               onChange={radioHandler}
@@ -62,7 +101,7 @@ export default function StartCreationPage() {
             />
           </li>
           <li className="flex flex-row justify-around items-center w-full">
-            <label for="Debian">Debian</label>
+            <label htmlFor="Debian">Debian</label>
             <input
               type="radio"
               onChange={radioHandler}
