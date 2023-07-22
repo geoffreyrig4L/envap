@@ -12,7 +12,7 @@ const logger = pino({
   },
 });
 
-app.use(cors({ origin: "http://localhost:3000" }));
+app.use(cors({ origin: "*", optionsSuccessStatus: 200 }));
 app.use(express.json());
 
 route({ app });

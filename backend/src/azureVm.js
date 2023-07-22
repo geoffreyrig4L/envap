@@ -4,6 +4,7 @@ import { ComputeManagementClient } from "@azure/arm-compute";
 import { ResourceManagementClient } from "@azure/arm-resources";
 import { StorageManagementClient } from "@azure/arm-storage";
 import { NetworkManagementClient } from "@azure/arm-network";
+import util from "util";
 
 const logger = pino({
   transport: {
@@ -13,7 +14,8 @@ const logger = pino({
 });
 
 // * deleting vm time in ms, you can change it
-const deleteTime = 600000; // ? default: 600000 (10 minutes)
+//const deleteTime = 600000; // ? default: 600000 (10 minutes)
+const deleteTime = 60000;
 
 export const createAndDeleteVmFunction = async (req) => {
   const { publisher, offer, sku } = req;
@@ -42,14 +44,14 @@ export const createAndDeleteVmFunction = async (req) => {
   const accType = "Standard_LRS";
 
   //****************************** Config for VM ********************************//
-  const adminUsername = "AdminSudo";
-  const adminPassword = "SudoMDP1993!";
+  const adminUsername = "EnvapAdmin";
+  const adminPassword = "&z22$dnV@p";
 
   //*********************** Azure platform authentication ***********************//
-  const clientId = process.env["AZURE_CLIENT_ID"];
-  const domain = process.env["AZURE_TENANT_ID"];
-  const secret = process.env["AZURE_CLIENT_SECRET"];
-  const subscriptionId = process.env["AZURE_SUBSCRIPTION_ID"];
+  const clientId = process.env.AZURE_CLIENT_ID;
+  const domain = process.env.AZURE_TENANT_ID;
+  const secret = process.env.AZURE_CLIENT_SECRET;
+  const subscriptionId = process.env.AZURE_SUBSCRIPTION_ID;
 
   if (!clientId || !domain || !secret || !subscriptionId) {
     logger.error(
@@ -86,19 +88,27 @@ export const createAndDeleteVmFunction = async (req) => {
       logger.info("This virtual machine will be deleted: " + deletionDate);
 
       setTimeout(() => {
-        deleteResourceGroup();
+        deleteResourceGroup(resourceGroupName);
       }, deleteTime);
 
       logger.info("The VM is created");
       return { status: 201, message: "Your VM is created" };
     } catch (err) {
-      console.log("HEEEERRRRRREEEEEEE !!!!!!");
       logger.error(err);
       return { status: 500, message: "An error occured while creating the VM" };
     }
   };
 
   const createResources = async () => {
+    let result;
+    let accountInfo;
+    let vnetInfo;
+    let subnetInfo;
+    let publicIPInfo;
+    let nicInfo;
+    let vmImageInfo;
+    let nicResult;
+    let vmInfo;
     try {
       result = await createResourceGroup();
       accountInfo = await createStorageAccount();
@@ -110,7 +120,6 @@ export const createAndDeleteVmFunction = async (req) => {
       nicResult = await getNICInfo();
       vmInfo = await createVirtualMachine(nicInfo.id, vmImageInfo[0].name);
     } catch (err) {
-      console.log("HEEEERRRRRREEEEEEE 2222222222 !!!!!!");
       logger.error(err);
       return { status: 500, message: "An error occured while creating the VM" };
     }
@@ -320,13 +329,6 @@ export const createAndDeleteVmFunction = async (req) => {
     return newNumber;
   }
 
-  const deleteResourceGroup = async () => {
-    logger.info("\nDeleting resource group: " + resourceGroupName);
-    return await resourceClient.resourceGroups.beginDeleteAndWait(
-      resourceGroupName
-    );
-  };
-
   return new Promise(async (resolve) => {
     const result = await createVm();
     resolve(result);
@@ -399,6 +401,13 @@ const getPublicIpName = (publicIpId) => {
   // Extract the public IP name from its resource ID
   const parts = publicIpId.split("/");
   return parts[parts.length - 1];
+};
+
+export const deleteResourceGroup = async (resourceGroupName) => {
+  logger.info("\nDeleting resource group: " + resourceGroupName);
+  return await resourceClient.resourceGroups.beginDeleteAndWait(
+    resourceGroupName
+  );
 };
 
 export const getVirtualMachines = async () => {
