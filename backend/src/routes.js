@@ -1,8 +1,4 @@
-import {
-  createAndDeleteVmFunction,
-  getVirtualMachines,
-  deleteResourceGroup,
-} from "./azureVm.js";
+import { createAndDeleteVmFunction, getVirtualMachines } from "./azureVm.js";
 
 const route = ({ app }) => {
   app.get("/get-virtual-machines", async (req, res) => {
@@ -22,24 +18,6 @@ const route = ({ app }) => {
   app.post("/create", async (req, res) => {
     try {
       createAndDeleteVmFunction(req.body)
-        .then((result) => {
-          console.log("result", result);
-          return res.status(result.status).send(result.message || result.error);
-        })
-        .catch((err) => {
-          logger.error(err);
-          return res.status(400).send("An error occured");
-        });
-    } catch (err) {
-      return res.status(500).send("Internal server error");
-    }
-  });
-
-  app.post("/delete", async (req, res) => {
-    const { resourcegroup } = req.body;
-    console.log(resourcegroup);
-    try {
-      deleteResourceGroup(resourcegroup)
         .then((result) => {
           console.log("result", result);
           return res.status(result.status).send(result.message || result.error);

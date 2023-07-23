@@ -4,19 +4,23 @@ import {
   disableButton,
 } from "@/app/utils/functionsCreateMachine";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useEffect, useContext, useState } from "react";
+import { useRouter } from "next/navigation";
+import SessionContext from "@/app/context/session";
 
 export default function StartCreationPage() {
+  const { setUser } = useContext(SessionContext);
   const [env, setEnv] = useState(undefined);
+  const router = useRouter();
 
   async function handleClick() {
     disableButton("createButton");
+    const detailsElement = document.getElementById("detailsCreation");
+    detailsElement.classList.remove("hide");
     await Promise.all([
-      displayMessageWhenButtonClick("loadingCreation"),
       displayMessageWhenButtonClick("spendNotification"),
       createVirtualMachine(env),
     ]);
-    //router.push("/create-machine/start-creation");
   }
 
   useEffect(() => {
@@ -34,7 +38,7 @@ export default function StartCreationPage() {
     setEnv(event.currentTarget.value);
   };
 
-  const createVirtualMachine = (env) => {
+  const createVirtualMachine = async (env) => {
     let data = {};
     switch (env) {
       case "Ubuntu":
@@ -61,11 +65,17 @@ export default function StartCreationPage() {
       default:
         break;
     }
-
-    axios
+    setUser((previousState) => {
+      return {
+        ...previousState,
+        tokens: previousState.tokens - 1000,
+      };
+    });
+    await axios
       .post("http://localhost:3001/create", data)
       .then((res) => {
         console.log(res);
+        router.push("../manage-machines");
       })
       .catch((err) => {
         console.log(err.response.data);
@@ -74,12 +84,14 @@ export default function StartCreationPage() {
 
   return (
     <div>
-      <h1 className="mb-[15px]">Création d&apos;une machine virtuelle</h1>
-      <h1 className="title mb-[40px]">Selectionner une environnement</h1>
-      <div className="ml-6 w-56">
-        <ul className="w-full bg-white shadow p-4 rounded-sm">
-          <li className="flex flex-row justify-around items-center w-full">
-            <label htmlFor="Ubuntu">Ubuntu</label>
+      <h1 className="mb-[1vh]">Création d&apos;une machine virtuelle</h1>
+      <h1 className="title">Selectionner une environnement</h1>
+      <div className="ml-6 w-[22vw]">
+        <ul className="w-full bg-white shadow rounded-xl p-3">
+          <li className="flex flex-row justify-around items-center w-full py-[2vh]">
+            <label className="w-[40%]" htmlFor="Ubuntu">
+              Ubuntu
+            </label>
             <input
               type="radio"
               onChange={radioHandler}
@@ -89,8 +101,10 @@ export default function StartCreationPage() {
               id="Ubuntu"
             />
           </li>
-          <li className="flex flex-row justify-around items-center w-full">
-            <label htmlFor="CentOS">CentOS</label>
+          <li className="flex flex-row justify-around items-center w-full py-[2vh]">
+            <label className="w-[40%]" htmlFor="CentOS">
+              CentOS
+            </label>
             <input
               type="radio"
               onChange={radioHandler}
@@ -100,8 +114,10 @@ export default function StartCreationPage() {
               id="CentOS"
             />
           </li>
-          <li className="flex flex-row justify-around items-center w-full">
-            <label htmlFor="Debian">Debian</label>
+          <li className="flex flex-row justify-around items-center w-full py-[2vh]">
+            <label className="w-[40%]" htmlFor="Debian">
+              Debian
+            </label>
             <input
               type="radio"
               onChange={radioHandler}
@@ -116,21 +132,27 @@ export default function StartCreationPage() {
           <button
             id="createButton"
             onClick={handleClick}
-            className="button enabled my-7 p-2 w-full shadow"
+            className="button enabled my-7 p-[2vh] w-full shadow"
           >
             Créer
           </button>
           <p
             id="spendNotification"
-            className="transition-opacity duration-[500ms] font-bold text-red-600 absolute hide right-[-125px] not-selectable"
+            className="transition-opacity duration-[500ms] font-bold text-red-600 absolute hide right-[-8vw] not-selectable"
           >
             -1000 jetons
           </p>
         </div>
+      </div>
+      <div
+        id="detailsCreation"
+        className="flex flex-col items-center absolute left-[50%] top-[50%] bg-slate-100 py-4 px-12 shadow rounded-lg hide"
+      >
         <span
           id="loadingCreation"
-          className="loading loading-dots loading-lg hide transition-opacity duration-[500ms]"
+          className="loading loading-dots loading-lg transition-opacity duration-[500ms]"
         ></span>
+        <p className="font-semibold text-gray-600">Création de la machine</p>
       </div>
     </div>
   );

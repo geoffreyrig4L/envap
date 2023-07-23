@@ -33,7 +33,7 @@ export default function Home() {
         className="buttonHome disabled big-shadow"
       >
         <h3 className="text-xl font-semibold">Créer une machine virtuelle</h3>
-        <HiOutlineDesktopComputer className="text-[4em]" />
+        <HiOutlineDesktopComputer className="text-[12vh]" />
       </button>
       <button
         onClick={() => {
@@ -42,7 +42,7 @@ export default function Home() {
         className="buttonHome disabled big-shadow"
       >
         <h3 className="text-xl font-semibold">Gérer ses machines</h3>
-        <GiSettingsKnobs className="text-[4em]" />
+        <GiSettingsKnobs className="text-[12vh]" />
       </button>
     </div>
   );

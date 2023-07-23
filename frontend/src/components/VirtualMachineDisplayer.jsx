@@ -10,6 +10,7 @@ const VirtualMachinesDisplayer = () => {
       .get("http://localhost:3001/get-virtual-machines")
       .then((res) => {
         setVirtualMachines(res.data);
+        console.log(res.data);
       })
       .catch((err) => {
         console.log(err);
@@ -18,10 +19,14 @@ const VirtualMachinesDisplayer = () => {
 
   return (
     <div>
-      <h1 className="mb-[15px] font-semibold">Vos machines :</h1>
+      <h1 className="mb-[4vh] font-semibold">Vos machines :</h1>
       <div className="flex flex-row overflow-x-auto">
         {virtualMachines.map((vm) => {
-          <h1>{vm}</h1>;
+          <div>
+            <h1>
+              Nom : <b>{vm.username}</b>
+            </h1>
+          </div>;
         })}
       </div>
     </div>

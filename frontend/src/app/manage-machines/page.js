@@ -18,7 +18,7 @@ export default function ManageMachinesPage() {
 
   return (
     <div>
-      <div className="flex flex-row justify-between items-center w-full mb-[15px]">
+      <div className="flex flex-row justify-between items-center w-full">
         <h1 className="title">Gérer ses machines</h1>
         <Link href="/create-machine">
           <div className="flex flex-row justify-between items-center button enabled p-4 w-[120%] shadow text-center">

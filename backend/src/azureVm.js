@@ -15,7 +15,7 @@ const logger = pino({
 
 // * deleting vm time in ms, you can change it
 //const deleteTime = 600000; // ? default: 600000 (10 minutes)
-const deleteTime = 60000;
+const deleteTime = 45000;
 
 export const createAndDeleteVmFunction = async (req) => {
   const { publisher, offer, sku } = req;
@@ -88,7 +88,7 @@ export const createAndDeleteVmFunction = async (req) => {
       logger.info("This virtual machine will be deleted: " + deletionDate);
 
       setTimeout(() => {
-        deleteResourceGroup(resourceGroupName);
+        deleteResourceGroup();
       }, deleteTime);
 
       logger.info("The VM is created");
@@ -294,6 +294,13 @@ export const createAndDeleteVmFunction = async (req) => {
     );
   };
 
+  const deleteResourceGroup = async () => {
+    logger.info("\nDeleting resource group: " + resourceGroupName);
+    return await resourceClient.resourceGroups.beginDeleteAndWait(
+      resourceGroupName
+    );
+  };
+
   const manageResources = async () => {
     await getVirtualMachines();
     await turnOffVirtualMachines(resourceGroupName, vmName, computeClient);
@@ -401,13 +408,6 @@ const getPublicIpName = (publicIpId) => {
   // Extract the public IP name from its resource ID
   const parts = publicIpId.split("/");
   return parts[parts.length - 1];
-};
-
-export const deleteResourceGroup = async (resourceGroupName) => {
-  logger.info("\nDeleting resource group: " + resourceGroupName);
-  return await resourceClient.resourceGroups.beginDeleteAndWait(
-    resourceGroupName
-  );
 };
 
 export const getVirtualMachines = async () => {

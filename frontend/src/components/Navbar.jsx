@@ -17,25 +17,31 @@ const Navbar = () => {
       <ul className="flex flex-row w-full justify-between items-center py-6 px-24 bg-white">
         <li>
           <Link href={"/"} className="font-bold text-3xl text-[#40E0D0]">
-            <Image src={logo} width={120} height={120} alt="logo" />
+            <Image
+              src={logo}
+              className="w-full h-[8vh] max-h-[70px]"
+              alt="logo"
+            />
           </Link>
         </li>
         <li>
           {Object.keys(user).length === 0 ? (
             <Link
-              className="flex flex-row justify-around items-center shadow button enabled p-2 hover:text-[#40E0D0] w-[400px]"
+              className="flex flex-row justify-around items-center shadow button enabled p-[2vh] hover:text-[#40E0D0]"
               href="/sign-in"
             >
-              <p className="italic">Connectez-vous pour créer des machines</p>
+              <p className="italic mr-[2vw]">
+                Connectez-vous pour créer des machines
+              </p>
               <BiLogInCircle title="Se connecter" className="text-2xl" />
             </Link>
           ) : (
             <div className="flex flex-row justify-between items-center">
-              <div className="flex flex-row w-[300px] justify-around">
-                <p>
+              <div className="flex flex-row justify-around">
+                <p className="mr-[4vw]">
                   <b>username</b> : {user.username}
                 </p>
-                <p>
+                <p className="mr-[4vw]">
                   {user.tokens} <b>jetons</b>
                 </p>
               </div>

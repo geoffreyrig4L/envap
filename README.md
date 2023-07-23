@@ -1,34 +1,39 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+Vous trouverez ici toutes les étapes à suivre pour profiter au maximum de l'application Envap :
 
-## Getting Started
+    1. Démarrer les applications
 
-First, run the development server:
+        1.1 Démarrer le backend
+            a. Dans votre GitBash, placer vous dans le répertoire "envap/backend"
+            b. Puis entrer la commande "npm run start"
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
+        1.2 Démarrer le frontend
+            a. Dans votre GitBash, placer vous dans le répertoire "envap/frontend"
+            b. Puis entrer la commande "npm run dev"
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+    2. Connectez-vous à l'application
+        Pour vous connecter à l'application, il vous suffit de vous rendre dans la page connexion de l'application web "Envap".
+        Un bouton 'Connexion' est visible dans la partie supérieure droite depuis la barre de navigation
+        Une fois sur la page de connexion, renseignez un de ces trois utilisateurs :
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+        | X | Username | Password | Description                                                          |
+        |---|----------|----------|----------------------------------------------------------------------|
+        | 1 | alpha    | alpha1   | Ne peux pas créer de VM                                              |
+        | 2 | beta     | beta1    | Peux créer une unique VM                                             |
+        | 3 | gamma    | gamma1   | Peux créer autant de VM qu'il souhaite                               |
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+    3. Modifier le fichier .env du dossier /backend
+        A présent que vous êtes connecté, vous avez la possibilité de créer une VM. Cependant, pour ce faire,
+        Vous devez renseigner vos identifiants Azure au backend de l'application. Suivez les étapes ci-dessous
+        pour exécuter convenablement cette opération :
 
-## Learn More
+        a. A la racine du dossier backend, créer un fichier nommé ".env"
 
-To learn more about Next.js, take a look at the following resources:
+        b. A l'intérieur de ce fichier, copiez ceci :
+            AZURE_TENANT_ID={your_tenant_id}
+            AZURE_CLIENT_ID={your_client_id}
+            AZURE_CLIENT_SECRET={your_client_secret}
+            AZURE_SUBSCRIPTION_ID={your_subscription_id}
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+        c. Maintenant, il vous suffit de remplacer les valeurs des variables d'environnements par vos identifiants Azure
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Vous pouvez maintenant profiter pleinement de l'application Envap :D

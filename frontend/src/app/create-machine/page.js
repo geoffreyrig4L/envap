@@ -29,7 +29,7 @@ export default function CreateMachinePage() {
 
   return (
     <div>
-      <div className="flex flex-row justify-between items-center w-full mb-[40px]">
+      <div className="flex flex-row justify-between items-center w-full">
         <h1 className="title">Créer une machine</h1>
         <Link href="/manage-machines">
           <div className="flex flex-row justify-between items-center button enabled p-4 w-[120%] shadow text-center">
@@ -48,7 +48,7 @@ export default function CreateMachinePage() {
         <button
           id="startButton"
           onClick={handleClick}
-          className="button enabled my-7 p-2 w-[250px] shadow"
+          className="button enabled my-[6vh] p-[2vh] w-[25vw] shadow"
         >
           Débuter la création
         </button>

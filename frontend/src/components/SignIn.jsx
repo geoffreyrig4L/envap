@@ -37,7 +37,7 @@ const SignIn = () => {
 
   return (
     <div>
-      <h1 className="title mb-[40px]">Connexion</h1>
+      <h1 className="title mb-[4vh]">Connexion</h1>
       <Formik
         initialValues={{ username: "gamma", password: "gamma1" }}
         validationSchema={validationSchema}
@@ -54,7 +54,7 @@ const SignIn = () => {
               autoComplete="off"
             />
             <ErrorMessage
-              className="errorMessage bottom-[-20px]"
+              className="errorMessage bottom-[calc(-15px-1vh)]"
               name="username"
               component="div"
             />
@@ -70,7 +70,7 @@ const SignIn = () => {
               autoComplete="off"
             />
             <ErrorMessage
-              className="errorMessage bottom-[-20px]"
+              className="errorMessage bottom-[calc(-15px-1vh)]"
               name="password"
               component="div"
             />
@@ -78,7 +78,7 @@ const SignIn = () => {
 
           <div className="flex flex-row justify-start items-center">
             <button
-              className="button enabled m-[1.2em] py-[1em] px-[2em] shadow"
+              className="button enabled m-[1.2em] py-[2vh] px-[2vw] shadow"
               type="submit"
             >
               Se connecter
