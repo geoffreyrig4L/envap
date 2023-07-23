@@ -39,7 +39,7 @@ const Navbar = () => {
             <div className="flex flex-row justify-between items-center">
               <div className="flex flex-row justify-around">
                 <p className="mr-[4vw]">
-                  <b>username</b> : {user.username}
+                  <b>Nom d'utilisateur</b> : {user.username}
                 </p>
                 <p className="mr-[4vw]">
                   {user.tokens} <b>jetons</b>
