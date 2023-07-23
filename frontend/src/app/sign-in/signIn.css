@@ -3,13 +3,14 @@
   flex-direction: column;
   margin-bottom: 1.8em;
   width: 40%;
+  max-width: 500px;
   position: relative;
 }
 
 .inputFormik {
   height: 2em;
   border-radius: 12px;
-  padding: 2px 1em;
+  padding: 3vh 1vw;
   outline-offset: 2px;
   outline-color: #40e0d0;
 }

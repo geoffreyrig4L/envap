@@ -1,12 +1,12 @@
 "use client";
+import SessionContext from "@/app/context/session";
 import {
-  displayMessageWhenButtonClick,
   disableButton,
+  displayMessageWhenButtonClick,
 } from "@/app/utils/functionsCreateMachine";
 import axios from "axios";
-import { useEffect, useContext, useState } from "react";
 import { useRouter } from "next/navigation";
-import SessionContext from "@/app/context/session";
+import { useContext, useEffect, useState } from "react";
 
 export default function StartCreationPage() {
   const { setUser } = useContext(SessionContext);
@@ -37,10 +37,6 @@ export default function StartCreationPage() {
       createButton.removeAttribute("disabled");
     }
   }, [env]);
-
-  const radioHandler = (event) => {
-    setEnv(event.currentTarget.value);
-  };
 
   const createVirtualMachine = async (env) => {
     let data = {};
@@ -80,7 +76,7 @@ export default function StartCreationPage() {
             tokens: previousState.tokens - 1000,
           };
         });
-        router.push("../manage-machines");
+        displaySuccess();
       })
       .catch((err) => {
         console.log(err.response.data);
@@ -93,50 +89,50 @@ export default function StartCreationPage() {
       });
   };
 
+  const displaySuccess = () => {
+    const detailsParagraph = document.getElementById("detailsParagraph");
+    detailsParagraph.innerHTML =
+      "<p class='text-green-600'>Création terminé, vous allez être redirigé</p>";
+    setTimeout(() => {
+      router.push("../manage-machines");
+    }, 8000);
+  };
+
   return (
     <div>
       <h1 className="mb-[1vh]">Création d&apos;une machine virtuelle</h1>
       <h1 className="title">Selectionner une environnement</h1>
       <div className="ml-6">
-        <ul className="bg-white shadow rounded-xl p-3 w-[22vw]">
-          <li className="flex flex-row justify-around items-center w-full py-[2vh]">
-            <label className="w-[40%]" htmlFor="Ubuntu">
+        <ul className="menu bg-white shadow rounded-xl p-3 w-[22vw]">
+          <li>
+            <button
+              className="py-[2vh]"
+              onClick={() => {
+                setEnv("Ubuntu");
+              }}
+            >
               Ubuntu
-            </label>
-            <input
-              type="radio"
-              onChange={radioHandler}
-              className="z-50"
-              name="env"
-              value="Ubuntu"
-              id="Ubuntu"
-            />
+            </button>
           </li>
-          <li className="flex flex-row justify-around items-center w-full py-[2vh]">
-            <label className="w-[40%]" htmlFor="CentOS">
+          <li>
+            <button
+              className="py-[2vh]"
+              onClick={() => {
+                setEnv("CentOS");
+              }}
+            >
               CentOS
-            </label>
-            <input
-              type="radio"
-              onChange={radioHandler}
-              className="z-50"
-              name="env"
-              value="CentOS"
-              id="CentOS"
-            />
+            </button>
           </li>
-          <li className="flex flex-row justify-around items-center w-full py-[2vh]">
-            <label className="w-[40%]" htmlFor="Debian">
+          <li>
+            <button
+              className="py-[2vh]"
+              onClick={() => {
+                setEnv("Debian");
+              }}
+            >
               Debian
-            </label>
-            <input
-              type="radio"
-              onChange={radioHandler}
-              className="z-50"
-              name="env"
-              value="Debian"
-              id="Debian"
-            />
+            </button>
           </li>
         </ul>
         <div className="flex flex-row items-center relative w-[18vw]">
@@ -164,7 +160,9 @@ export default function StartCreationPage() {
           id="loadingCreation"
           className="loading loading-dots loading-lg transition-opacity duration-[500ms]"
         ></span>
-        <p className="font-semibold text-gray-600">Création de la machine</p>
+        <p id="detailsParagraph" className="font-semibold text-gray-600">
+          Création de la machine virtuelle
+        </p>
       </div>
     </div>
   );

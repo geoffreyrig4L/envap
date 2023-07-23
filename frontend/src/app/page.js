@@ -41,7 +41,7 @@ export default function Home() {
         }}
         className="buttonHome disabled big-shadow"
       >
-        <h3 className="text-xl font-semibold">Gérer ses machines</h3>
+        <h3 className="text-xl font-semibold">Gérer vos machines virtuelles</h3>
         <GiSettingsKnobs className="text-[12vh]" />
       </button>
     </div>

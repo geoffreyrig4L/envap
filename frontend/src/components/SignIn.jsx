@@ -27,11 +27,10 @@ const SignIn = () => {
       ) {
         setUser(user);
         router.push("/");
-      } else {
-        document.getElementById("errorSignIn").textContent =
-          "Nom d'utilisateur et / ou mot de passe incorrect";
       }
     });
+    document.getElementById("errorSignIn").textContent =
+      "Nom d'utilisateur et / ou mot de passe incorrect";
     setSubmitting(false);
   };
 
@@ -47,7 +46,7 @@ const SignIn = () => {
           <div className="field">
             <label htmlFor="username">Nom d&apos;utilisateur</label>
             <Field
-              className="inputFormik"
+              className="inputFormik xs-shadow"
               type="text"
               id="username"
               name="username"
@@ -63,7 +62,7 @@ const SignIn = () => {
           <div className="field">
             <label htmlFor="password">Mot de passe</label>
             <Field
-              className="inputFormik"
+              className="inputFormik xs-shadow"
               type="password"
               id="password"
               name="password"

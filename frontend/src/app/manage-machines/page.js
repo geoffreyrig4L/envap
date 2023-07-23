@@ -19,7 +19,7 @@ export default function ManageMachinesPage() {
   return (
     <div>
       <div className="flex flex-row justify-between items-center w-full">
-        <h1 className="title">Gérer ses machines</h1>
+        <h1 className="title">Vos machines virtuelles</h1>
         <Link href="/create-machine">
           <div className="flex flex-row justify-between items-center button enabled p-4 w-[120%] shadow text-center">
             <p>Créer</p>
