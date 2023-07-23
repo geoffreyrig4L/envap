@@ -23,7 +23,7 @@ export default function CreateMachinePage() {
 
   async function handleClick() {
     disableButton("startButton");
-    await displayMessageWhenButtonClick("loadingStart");
+    await displayMessageWhenButtonClick("loadingStart", 500);
     router.push("/create-machine/start-creation");
   }
 

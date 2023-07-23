@@ -11,20 +11,24 @@ import SessionContext from "@/app/context/session";
 export default function StartCreationPage() {
   const { setUser } = useContext(SessionContext);
   const [env, setEnv] = useState(undefined);
+  const [startCreation, setStartCreation] = useState(false);
   const router = useRouter();
 
   async function handleClick() {
+    setStartCreation(true);
     disableButton("createButton");
     const detailsElement = document.getElementById("detailsCreation");
     detailsElement.classList.remove("hide");
+    const errorParagraph = document.getElementById("error");
+    errorParagraph.textContent = "";
     await Promise.all([
-      displayMessageWhenButtonClick("spendNotification"),
+      displayMessageWhenButtonClick("spendNotification", 6000),
       createVirtualMachine(env),
     ]);
   }
 
   useEffect(() => {
-    if (env === undefined) {
+    if (env === undefined || startCreation) {
       disableButton("createButton");
     } else {
       const createButton = document.getElementById("createButton");
@@ -65,20 +69,27 @@ export default function StartCreationPage() {
       default:
         break;
     }
-    setUser((previousState) => {
-      return {
-        ...previousState,
-        tokens: previousState.tokens - 1000,
-      };
-    });
+
     await axios
       .post("http://localhost:3001/create", data)
       .then((res) => {
         console.log(res);
+        setUser((previousState) => {
+          return {
+            ...previousState,
+            tokens: previousState.tokens - 1000,
+          };
+        });
         router.push("../manage-machines");
       })
       .catch((err) => {
         console.log(err.response.data);
+        setStartCreation(false);
+        const detailsElement = document.getElementById("detailsCreation");
+        detailsElement.classList.add("hide");
+        const errorParagraph = document.getElementById("error");
+        errorParagraph.textContent =
+          "Une erreur s'est produite, veuillez réessayer";
       });
   };
 
@@ -86,8 +97,8 @@ export default function StartCreationPage() {
     <div>
       <h1 className="mb-[1vh]">Création d&apos;une machine virtuelle</h1>
       <h1 className="title">Selectionner une environnement</h1>
-      <div className="ml-6 w-[22vw]">
-        <ul className="w-full bg-white shadow rounded-xl p-3">
+      <div className="ml-6">
+        <ul className="bg-white shadow rounded-xl p-3 w-[22vw]">
           <li className="flex flex-row justify-around items-center w-full py-[2vh]">
             <label className="w-[40%]" htmlFor="Ubuntu">
               Ubuntu
@@ -128,11 +139,11 @@ export default function StartCreationPage() {
             />
           </li>
         </ul>
-        <div className="flex flex-row items-center relative w-[70%]">
+        <div className="flex flex-row items-center relative w-[18vw]">
           <button
             id="createButton"
             onClick={handleClick}
-            className="button enabled my-7 p-[2vh] w-full shadow"
+            className="button enabled my-[3vh] p-[2vh] w-full shadow"
           >
             Créer
           </button>
@@ -143,6 +154,7 @@ export default function StartCreationPage() {
             -1000 jetons
           </p>
         </div>
+        <p id="error" className="opacity-60 truncate"></p>
       </div>
       <div
         id="detailsCreation"

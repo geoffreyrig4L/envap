@@ -1,11 +1,11 @@
-export function displayMessageWhenButtonClick(element) {
+export function displayMessageWhenButtonClick(element, time) {
   return new Promise((resolve) => {
     const copyElement = document.getElementById(element);
     copyElement.classList.remove("hide");
     setTimeout(() => {
       copyElement.classList.add("hide");
-      resolve(); // Résoud la promesse une fois que le délai d'attente est terminé
-    }, 1500);
+      resolve();
+    }, time);
   });
 }
 
